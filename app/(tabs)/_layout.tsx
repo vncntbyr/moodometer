@@ -1,11 +1,11 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Pressable, View, useColorScheme } from 'react-native';
 
+import { useTranslation } from '@/hooks/useTranslation';
+import { InfoIcon } from '@/constants/icons/InfoIcon';
 import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -17,41 +17,60 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const t = useTranslation();
 
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
+        headerBackgroundContainerStyle: {
+          backgroundColor: Colors[colorScheme ?? 'light'].headerBackground,
+        },
+        headerBackground: () => null,
+        tabBarStyle: {
+          backgroundColor: Colors[colorScheme ?? 'light'].headerBackground,
+        },
+        tabBarBackground: () => (
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: Colors[colorScheme ?? 'light'].borderColor,
+            }}
+          ></View>
+        ),
+      }}
+      initialRouteName="index"
+    >
+      <Tabs.Screen
+        name="score"
+        options={{
+          title: t('bottomTabNavigation.score'),
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="line-chart" color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: t('bottomTabNavigation.mood'),
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="smile-o" color={color} />
+          ),
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/InfoModal" asChild>
               <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
+                {({ pressed }) => <InfoIcon pressed={pressed} />}
               </Pressable>
             </Link>
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="about"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: t('bottomTabNavigation.about'),
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </Tabs>

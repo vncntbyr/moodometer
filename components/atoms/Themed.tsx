@@ -3,11 +3,7 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import {
-  Text as DefaultText,
-  View as DefaultView,
-  useColorScheme,
-} from 'react-native';
+import { Text as DefaultText, View as DefaultView, useColorScheme } from 'react-native';
 import { ScrollView as DefaultScrollView } from 'react-native-gesture-handler';
 import Colors from '@/constants/Colors';
 
@@ -43,22 +39,14 @@ export function Text(props: TextProps) {
 
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    'background'
-  );
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
 export function ScrollView(props: ScrollViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    'background'
-  );
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
-  return (
-    <DefaultScrollView style={[{ backgroundColor }, style]} {...otherProps} />
-  );
+  return <DefaultScrollView style={[{ backgroundColor }, style]} {...otherProps} />;
 }

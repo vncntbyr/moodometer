@@ -1,0 +1,18 @@
+{
+  "bottomTabNavigation": {
+    "score": "Score",
+    "mood": "Mood",
+    "about": "About"
+  },
+  "navigation": {
+    "back": "Back"
+  },
+  "about": {
+    "aboutMe": "About me",
+    "analytics": "Analytics",
+    "terms": "Terms of use",
+    "privacy": "Privacy",
+    "contact": "Get in touch",
+    "coffee": "Buy me a coffee"
+  }
+}
